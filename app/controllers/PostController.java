@@ -1,12 +1,7 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 
-import models.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.ebean.Transactional;
@@ -30,6 +25,17 @@ public class PostController extends Controller {
 		}
 		T_Post post = requestForm.get();
 		post.save();
+		return redirect(routes.Application.index());
+	}
+	
+	@Transactional
+	public Result delete(Long id) {
+		System.out.println("DELETE:" + id);
+		T_Post post = T_Post.find.byId(id).orElse(new T_Post());
+		if (post.isEmpty()) {
+			return badRequest("delete error");
+		}
+		post.delete();
 		return redirect(routes.Application.index());
 	}
 

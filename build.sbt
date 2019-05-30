@@ -23,3 +23,7 @@ libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.0"
 // LESS compile setting
 includeFilter in (Assets, LessKeys.less) := "*.less"
 excludeFilter in (Assets, LessKeys.less) := "_*.less"
+
+EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
+EclipseKeys.preTasks := Seq(compile in Compile)

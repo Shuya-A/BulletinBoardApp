@@ -1,5 +1,6 @@
 @(postForm: Form[tables.T_Post], items: List[Form[PostItem]], message: String)
 @import helper._
+
 @views.html.main("一覧") {
 <div class="container">
   <div class="row">
@@ -33,6 +34,9 @@
 				<p>タイトル：@field("title").value.getOrElse("")</p>
 				<p>メッセージ：@field("message").value.getOrElse("")</p>
 				<p>投稿日時：@field("createdAt").value.getOrElse("")</p>
+       @helper.form(action = CSRF(routes.PostController.delete(field("id").value.getOrElse("").toLong))) {
+          <input type="submit" class="btn btn-danger" value="削除" />
+        }
     </div>
 			<hr>
 			}
