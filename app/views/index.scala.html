@@ -1,0 +1,41 @@
+@(postForm: Form[tables.T_Post], items: List[Form[PostItem]], message: String)
+
+@views.html.main("一覧") {
+<div class="container">
+  <div class="row">
+    @if(message != null) {
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+        @message
+      </div>
+    }
+    <div class="page-header">
+      @helper.form(action = routes.PostController.create()) {
+        <div class="form-inline">
+          <div class="input-group col-sm-4">
+				      <input type="hidden" value="@postForm("id").value.getOrElse("").toString" name="id">
+				      @helper.inputText(postForm("name"),
+				        '_label -> "名前")
+				      @helper.inputText(postForm("title"),
+				        '_label -> "タイトル")
+				      @helper.inputText(postForm("message"),
+				        '_label -> "メッセージ")
+								<span class="input-group-btn">
+              <button type="submit" class="btn btn-default">投稿</button>
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+			@items.map { field =>
+    <div>
+				<p>名前：@field("name").value.getOrElse("")</p>
+				<p>タイトル：@field("title").value.getOrElse("")</p>
+				<p>メッセージ：@field("message").value.getOrElse("")</p>
+				<p>投稿日時：@field("createdAt").value.getOrElse("")</p>
+    </div>
+			<hr>
+			}
+  </div>
+</div>
+}
