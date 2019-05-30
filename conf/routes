@@ -3,5 +3,4 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /                           controllers.Application.index()
 GET     /                           controllers.Application.index()
 
-+ nocsrf
 POST    /create			                     	 controllers.PostController.create()

@@ -1,5 +1,5 @@
 @(postForm: Form[tables.T_Post], items: List[Form[PostItem]], message: String)
-
+@import helper._
 @views.html.main("一覧") {
 <div class="container">
   <div class="row">
@@ -10,7 +10,7 @@
       </div>
     }
     <div class="page-header">
-      @helper.form(action = routes.PostController.create()) {
+      @helper.form(action = CSRF(routes.PostController.create())) {
         <div class="form-inline">
           <div class="input-group col-sm-4">
 				      <input type="hidden" value="@postForm("id").value.getOrElse("").toString" name="id">
